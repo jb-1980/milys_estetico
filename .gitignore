@@ -59,3 +59,8 @@ typings/
 
 # directory of example files I found on the internet that I don't want to track
 examples/
+
+# Sundry items
+config.txt
+fullpageos-network.txt
+fullpageos.txt

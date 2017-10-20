@@ -36,22 +36,40 @@ const styles = StyleSheet.create({
 })
 
 export default class Menu extends React.Component {
+
+  resize = () => this.forceUpdate()
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize)
+  }
+
   render() {
     const promo1 = [
       'fade1.jpg',
+      'cut1.jpg',
+      'fade3.jpg',
       'fade2.jpg',
-      'style1.jpg'
+      'withbeard.jpg',
+      'style1.jpg',
+      //'600x600.png',
     ].map((promo, i) =>
       <img
         key={i}
         className={`promo1-image ${css(styles.promo1)}`}
         src={`../../assets/images/${promo}`}
+        data-position={i}
       />
     )
     const promo2 = [
       'before_after1.jpg',
       'before_after2.jpg',
       'before_after3.jpg',
+      'before_after4.jpg',
+      'before_after5.jpg',
       'highlights1.jpg',
       'highlights2.jpg',
     ].map((promo, i) =>
@@ -62,6 +80,7 @@ export default class Menu extends React.Component {
           width: windowHeight / 1.8,
           height: windowHeight / 1.8,
         }}
+        data-position={i}
         src={`../../assets/images/${promo}`}
       />
     )

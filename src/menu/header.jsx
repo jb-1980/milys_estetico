@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, css} from 'aphrodite'
 
 const background = '#dec8a8'
-console.log(window.innerHeight, window.innerWidth)
+
 const styles = StyleSheet.create({
   header: {
     display: 'flex',
@@ -31,7 +31,7 @@ const Header = () =>
   <div className={css(styles.header)}>
     <h1 style={{ marginBottom: 0, marginTop: 0 }}>
       <span className={css(styles.title)}>Mily's</span>
-      <img className={css(styles.logoImage)} src="/assets/images/logo_white.png"/>
+      <img className={css(styles.logoImage)} src="../../assets/images/logo_white.png"/>
       <span className={css(styles.title)}>Estetico</span>
     </h1>
   </div>

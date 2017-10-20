@@ -8,11 +8,21 @@
     <link rel="shortcut icon" type="image/png" href="/assets/images/logo_black.png"/>
     <!-- <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet"> -->
     <style>
-      /*@font-face {
+      @font-face {
         font-family: 'Sacramento';
-        src: url('https://fonts.googleapis.com/css?family=Sacramento');
-      }*/
-      @import url('https://fonts.googleapis.com/css?family=Sacramento|Bubblegum+Sans|Baloo+Bhaijaan');
+        src: url('../../assets/fonts/Sacramento/Sacramento-Regular.ttf');
+      }
+
+      @font-face {
+        font-family: 'Bubblegum Sans';
+        src: url('../../assets/fonts/Bubblegum_Sans/BubblegumSans-Regular.ttf');
+      }
+
+      @font-face {
+        font-family: 'Baloo Bhaijaan';
+        src: url('../../assets/fonts/Baloo_Bhaijaan/BalooBhaijaan-Regular.ttf');
+      }
+      /*@import url('https://fonts.googleapis.com/css?family=Sacramento|Bubblegum+Sans|Baloo+Bhaijaan');*/
       html, body {
         height: 100%;
       }
@@ -38,9 +48,29 @@
       .promo1-image {
         position: absolute;
         transition: transform 1s ease-in-out, opacity 1s cubic-bezier(0.91, 0.02, 0.71, 0.18);
-        opacity: 0;
         overflow: hidden;
+        transform: translateX(-100000%);
+      }
+
+      .promo1-image.position1 {
+        transform: translateX(-100%);
+        opacity: 0 !important;
+      }
+
+      .promo1-image.position2 {
+        transform: translateX(-50%);
+        z-index: 2;
+      }
+
+      .promo1-image.position3 {
+        transform: translateX(50%);
+        z-index: 3;
+      }
+
+      .promo1-image.position4 {
         transform: translateX(100%);
+        opacity: 0 !important;
+        z-index: -1;
       }
 
       .promo2-image {
@@ -48,20 +78,19 @@
         transition: transform 1s ease-in-out, opacity 1s cubic-bezier(0.91, 0.02, 0.71, 0.18);
         opacity: 0;
         overflow: hidden;
-        transform: translateX(-100%);
+        transform: translateX(-50%);
+        z-index: 0;
       }
 
       .active {
         opacity: 1 !important;
         transform: translateX(0);
-      }
-
-      .moveleft {
-        transform: translateX(-100%);
+        z-index: 1;
       }
 
       .moveright {
-        transform: translateX(100%);
+        transform: translateX(50%);
+        z-index: -1;
       }
 
     </style>
@@ -70,16 +99,7 @@
     <div id="app"></app>
     <script src="bundle.js"></script>
     <script>
-      // function toggleActive(_id){
-      //   var element = document.getElementById(_id)
-      //   element.classList.toggle('active')
-      // }
-      //
-      // setInterval(toggleActive, 8000, 'super-nachos')
-      // setInterval(toggleActive, 8050, 'menudo')
-      // setInterval(toggleActive, 7000, 'carne-asada-fries')
       function transitionPromo(selector, moveDir) {
-        console.log('transitions should be happening')
         var nodes = Array.from(document.querySelectorAll(selector))
         if (nodes.length === 0) return
 
@@ -111,12 +131,47 @@
         nodes[previousNodeIndex].classList.remove('active')
       }
 
-      transitionPromo('.promo1-image')
-      setInterval(transitionPromo, 7777, '.promo1-image', 'moveleft')
+      transitionPromo1('.promo1-image')
+      setInterval(transitionPromo1, 7777, '.promo1-image', 'moveleft')
 
       transitionPromo('.promo2-image', 'moveright')
       setInterval(transitionPromo, 6789, '.promo2-image', 'moveright')
 
+      function transitionPromo1() {
+        var nodes = Array.from(document.querySelectorAll('.promo1-image'))
+        if (nodes.length === 0) return
+
+        var activeNodeIndx, nextNodeIndx, previousNodeIndex
+
+        nodes.forEach((node, i) => {
+          let position = Number(node.dataset.position)
+          switch (position) {
+            case 0:
+              node.classList.remove('position1', 'position4', 'position3')
+              node.classList.add('position2')
+              break
+
+            case 1:
+              node.classList.remove('position2')
+              node.classList.add('position3')
+              break
+
+            case 2:
+              node.classList.remove('position3')
+              node.classList.add('position4')
+              break
+
+            default:
+              node.classList.remove('position4')
+              node.classList.add('position1')
+          }
+
+
+
+          let newPosition = position == nodes.length - 1 ? 0 : position + 1
+          node.dataset.position = newPosition
+        })
+      }
     </script>
   </body>
 </html>
