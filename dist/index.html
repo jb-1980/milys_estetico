@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  	<meta http-equiv="x-ua-compatible" content="ie=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mily's Menu</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/images/logo_black.png"/>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet"> -->
+    <style>
+      @font-face {
+        font-family: 'Sacramento';
+        src: url('../assets/fonts/Sacramento/Sacramento-Regular.ttf');
+      }
+
+      @font-face {
+        font-family: 'Bubblegum Sans';
+        src: url('../assets/fonts/Bubblegum_Sans/BubblegumSans-Regular.ttf');
+      }
+
+      @font-face {
+        font-family: 'Baloo Bhaijaan';
+        src: url('../assets/fonts/Baloo_Bhaijaan/BalooBhaijaan-Regular.ttf');
+      }
+      /*@import url('https://fonts.googleapis.com/css?family=Sacramento|Bubblegum+Sans|Baloo+Bhaijaan');*/
+      html, body {
+        height: 100%;
+      }
+
+      html {
+        box-sizing: border-box;
+        background: url(../assets/images/black_background_wood2.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .promo1-image {
+        position: absolute;
+        transition: transform 1s ease-in-out, opacity 1s cubic-bezier(0.91, 0.02, 0.71, 0.18);
+        overflow: hidden;
+        transform: translateX(-100000%);
+      }
+
+      .promo1-image.position1 {
+        transform: translateX(-100%);
+        opacity: 0 !important;
+      }
+
+      .promo1-image.position2 {
+        transform: translateX(-50%);
+        z-index: 2;
+      }
+
+      .promo1-image.position3 {
+        transform: translateX(50%);
+        z-index: 3;
+      }
+
+      .promo1-image.position4 {
+        transform: translateX(100%);
+        opacity: 0 !important;
+        z-index: -1;
+      }
+
+      .promo2-image {
+        position: absolute;
+        transition: transform 1s ease-in-out, opacity 1s cubic-bezier(0.91, 0.02, 0.71, 0.18);
+        opacity: 0;
+        overflow: hidden;
+        transform: translateX(-50%);
+        z-index: 0;
+      }
+
+      .active {
+        opacity: 1 !important;
+        transform: translateX(0);
+        z-index: 1;
+      }
+
+      .moveright {
+        transform: translateX(50%);
+        z-index: -1;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app"></app>
+    <script src="bundle.5c9c1a392e1384f8fb05.js"></script>
+    <script>
+    function transitionPromo(selector, moveDir) {
+  var nodes = Array.from(document.querySelectorAll(selector))
+  if (nodes.length === 0) return
+
+  var activeNodeIndx, nextNodeIndx, previousNodeIndex
+
+  nodes.forEach((node, i) => {
+    if (node.classList.contains("active")) {
+      activeNodeIndx = i
+      return
+    }
+
+    node.classList.remove(moveDir)
+  })
+
+  if (activeNodeIndx === undefined) {
+    //active class has not been added yet
+    activeNodeIndx = 0
+    nextNodeIndx = 1
+    previousNodeIndex = activeNodeIndx
+  } else if (activeNodeIndx === 0) {
+    nextNodeIndx = nodes.length - 1
+    previousNodeIndex = activeNodeIndx
+  } else {
+    nextNodeIndx = activeNodeIndx - 1
+    previousNodeIndex = activeNodeIndx
+  }
+
+  nodes[nextNodeIndx].classList.add("active")
+  nodes[previousNodeIndex].classList.add(moveDir)
+  nodes[previousNodeIndex].classList.remove("active")
+}
+
+transitionPromo1(".promo1-image")
+setInterval(transitionPromo1, 7777, ".promo1-image", "moveleft")
+
+transitionPromo(".promo2-image", "moveright")
+setInterval(transitionPromo, 6789, ".promo2-image", "moveright")
+
+function transitionPromo1() {
+  var nodes = Array.from(document.querySelectorAll(".promo1-image"))
+  if (nodes.length === 0) return
+
+  var activeNodeIndx, nextNodeIndx, previousNodeIndex
+
+  nodes.forEach((node, i) => {
+    let position = Number(node.dataset.position)
+    switch (position) {
+      case 0:
+        node.classList.remove("position1", "position4", "position3")
+        node.classList.add("position2")
+        break
+
+      case 1:
+        node.classList.remove("position2")
+        node.classList.add("position3")
+        break
+
+      case 2:
+        node.classList.remove("position3")
+        node.classList.add("position4")
+        break
+
+      default:
+        node.classList.remove("position4")
+        node.classList.add("position1")
+    }
+
+    let newPosition = position == nodes.length - 1 ? 0 : position + 1
+    node.dataset.position = newPosition
+  })
+}
+</script>
+  </body>
+</html>
