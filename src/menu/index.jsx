@@ -48,12 +48,9 @@ export default class Menu extends React.Component {
 
   render() {
     const promo1 = [
-      "fade1.jpg",
-      "cut1.jpg",
-      "fade3.jpg",
-      "fade2.jpg",
-      "withbeard.jpg",
-      "style1.jpg",
+      "adult_line_cut.jpg",
+      "kid_line_style_1.jpg",
+      "kid_line_style_2.jpg",
       //'600x600.png',
     ].map((promo, i) => (
       <img
@@ -65,6 +62,8 @@ export default class Menu extends React.Component {
     ))
     const promo2 = [
       "before_after_1.jpg",
+      "before_after_2.jpg",
+      "before_after_3.jpg",
       "curly_ends.jpg",
       "dark_red_highlights.jpg",
     ].map((promo, i) => (
