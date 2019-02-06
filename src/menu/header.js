@@ -20,7 +20,7 @@ const Header = ({ windowWidth, windowHeight }) => {
     <div className={css(styles.header)}>
       <img
         className={css(styles.logoImage)}
-        src="../../assets/images/logo_new.png"
+        src="../assets/images/logo_new.png"
       />
     </div>
   )
