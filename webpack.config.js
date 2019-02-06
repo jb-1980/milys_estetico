@@ -7,12 +7,12 @@ const pathsToClean = ["dist"]
 
 var config = {
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".js"],
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         loaders: ["babel-loader"],
         exclude: /node_modules/,
         include: __dirname,
@@ -36,6 +36,7 @@ var config = {
       template: "src/menu/index.html",
       inject: false,
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 }
 
@@ -43,7 +44,7 @@ var menuConfig = Object.assign({}, config, {
   entry: "./src/menu/index",
   output: {
     path: path.join(__dirname, "dist/"),
-    filename: "bundle.[chunkHash].js",
+    filename: "bundle.[hash].js",
   },
 })
 
