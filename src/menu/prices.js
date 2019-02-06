@@ -29,10 +29,6 @@ export const prices = {
       price: "$12.00",
     },
     {
-      name: "Haircut with style",
-      price: "$12.00 and up",
-    },
-    {
       name: "Fade with shaving machine",
       price: "$14.00",
     },
