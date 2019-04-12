@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "aphrodite": "^2.2.3",
+    "emotion": "^10.0.9",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-hot-loader": "^4.3.12"
