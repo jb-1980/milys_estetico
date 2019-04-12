@@ -6,7 +6,7 @@ export const prices = {
     },
     {
       name: "Kids",
-      price: "$10.00",
+      price: "$12.00",
     },
     {
       name: "Infants",
