@@ -20,7 +20,7 @@ export default class Menu extends React.Component {
           const now = Date.now()
           if (prevState.showVideo && video.ended) {
             return { showVideo: false, timestamp: now }
-          } else if (now - prevState.timestamp > 5000 && video.ended) {
+          } else if (now - prevState.timestamp > 300000 && video.ended) {
             video.load()
             return { showVideo: true, timestamp: now }
           }
